@@ -23,7 +23,7 @@ public class JpaTest {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("example");
 		EntityManager manager = factory.createEntityManager();
-//		JpaTest test = new JpaTest(manager);
+		JpaTest test = new JpaTest(manager);
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
@@ -33,10 +33,17 @@ public class JpaTest {
 		home.setSuperficie("150"); 
 		home.setAdresseIp("8.8.8.8");
 		
-		manager.merge(home);
+		Person person=new Person();
+		person.setMail("mail@mail.fr");
+		person.setNom("M.");
+		person.setPrenom("Zineb");
+		person.setGenre(true);
+		person.setDateNaissance(null);
+		person.setProfileFB("fbprofile");
 		
 		
-		
+		test.manager.persist(person);
+		test.manager.persist(home);
 //		Person person=new Person();
 //		manager.persist(person);
 

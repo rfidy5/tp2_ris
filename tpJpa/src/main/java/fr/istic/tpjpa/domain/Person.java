@@ -1,12 +1,14 @@
 package fr.istic.tpjpa.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Persister;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -20,6 +22,7 @@ public class Person {
 	private Date dateNaissance;
 	private String profileFB;
 	
+	private List<Home> listhome=new ArrayList<Home>();
 	
 	@Id
 	@GeneratedValue
@@ -65,4 +68,10 @@ public class Person {
 	public void setProfileFB(String profileFB) {
 		this.profileFB = profileFB;
 	}
+	
+	@OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
+	public List<Home> getListhome() {
+		return listhome;
+	}
+	
 }
