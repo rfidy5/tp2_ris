@@ -1,5 +1,8 @@
 package fr.istic.tpjpa.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -23,7 +26,7 @@ public class JpaTest {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("example");
 		EntityManager manager = factory.createEntityManager();
-//		JpaTest test = new JpaTest(manager);
+		//JpaTest test = new JpaTest(manager);
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
@@ -33,12 +36,15 @@ public class JpaTest {
 		home.setSuperficie("150"); 
 		home.setAdresseIp("8.8.8.8");
 		
-		manager.merge(home);
+		manager.persist(home);
+		 
+		List <Home> listeMaison = new ArrayList<Home>();
+		listeMaison.add(home);
 		
-		
-		
-//		Person person=new Person();
-//		manager.persist(person);
+	Person person=new Person();
+	person.setNom("Mame");
+	person.setHome(listeMaison);
+	manager.persist(person);
 
 		tx.commit();
 

@@ -1,12 +1,14 @@
 package fr.istic.tpjpa.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Persister;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -21,6 +23,10 @@ public class Person {
 	private String profileFB;
 	
 	
+	
+	private List<Home> home = new ArrayList<Home>();
+	
+	private List<ElectronicDevise> electronicDevise = new ArrayList<ElectronicDevise>();
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -65,4 +71,36 @@ public class Person {
 	public void setProfileFB(String profileFB) {
 		this.profileFB = profileFB;
 	}
+	
+
+	
+    @OneToMany(mappedBy = "personne", cascade = CascadeType.PERSIST)
+    public List<Home> getHome() {
+		return home;
+	}
+	public void setHome(List<Home> home) {
+		this.home = home;
+	}
+    
+  
+    
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+	public List<ElectronicDevise> getElectronicDevise() {
+		return electronicDevise;
+	}
+	public void setElectronicDevise(List<ElectronicDevise> electronicDevise) {
+		this.electronicDevise = electronicDevise;
+	}
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

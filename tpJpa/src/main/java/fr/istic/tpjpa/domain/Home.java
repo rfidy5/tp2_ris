@@ -1,10 +1,15 @@
 package fr.istic.tpjpa.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Home implements Serializable{
@@ -14,6 +19,10 @@ public class Home implements Serializable{
 	private String adresse;
 	private String superficie;
 	private String adresseIp;
+	private Person personne;
+	
+	private List<Heater> Heater = new ArrayList<Heater>();
+	
 	
 	@Id
 	@GeneratedValue
@@ -42,9 +51,41 @@ public class Home implements Serializable{
 		this.adresseIp = adresseIp;
 	}
 	
+    @ManyToOne
+	public Person getPersonne() {
+		return personne;
+	}
+	public void setPersonne(Person personne) {
+		this.personne = personne;
+	}
 	
+    
+    
+    
+//    @Override
+//
+//    public String toString() {
+//
+//        return "la maison [id=" + id + ", name=" + adresse + ", appartient à la personne"
+//
+//                + personne.getNom() + "]";
+//    }
 	
-	
+    
+    
+    @OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
+
+    public List<Heater> getHeater() {
+
+        return Heater;
+
+    }
+
+    public void setHeater(List<Heater> Heater) {
+
+        this.Heater = Heater;
+    }
+
 	
 	
 	
