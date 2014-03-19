@@ -81,7 +81,12 @@ public class Home implements Serializable{
 
     }
 
-    public void setHeater(List<Heater> Heater) {
+    public Home(String adresse, Person personne) {
+		super();
+		this.adresse = adresse;
+		this.personne = personne;
+	}
+	public void setHeater(List<Heater> Heater) {
 
         this.Heater = Heater;
     }

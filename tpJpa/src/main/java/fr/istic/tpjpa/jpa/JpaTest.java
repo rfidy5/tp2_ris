@@ -26,31 +26,100 @@ public class JpaTest {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("example");
 		EntityManager manager = factory.createEntityManager();
-		//JpaTest test = new JpaTest(manager);
+		JpaTest test = new JpaTest(manager);
 
+//		EntityTransaction tx = manager.getTransaction();
+//		tx.begin();
+//
+//		Home home=new Home();
+//		home.setAdresse("rennes");
+//		home.setSuperficie("150"); 
+//		home.setAdresseIp("8.8.8.8");
+//
+//		
+//
+//		List <Home> listeMaison = new ArrayList<Home>();
+//		listeMaison.add(home);
+//		Person person=new Person();
+//		person.setNom("Mame");
+//		person.setPrenom("Sylla");
+//		person.setHome(listeMaison);
+//		home.setPersonne(person);
+//		manager.persist(home);
+//		manager.persist(person);
+//
+//		tx.commit();
+//
+//		// TODO run request
+//
+//		System.out.println(".. done");
+		
 		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
 
-		Home home=new Home();
-		home.setAdresse("rennes");
-		home.setSuperficie("150"); 
-		home.setAdresseIp("8.8.8.8");
+        tx.begin();
+
+        try {
+
+            test.createHome();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        tx.commit();
+
+        test.listPersonnes();
+
+           
+
+       manager.close();
+
+        System.out.println(".. done");
 		
-		manager.persist(home);
-		 
-		List <Home> listeMaison = new ArrayList<Home>();
-		listeMaison.add(home);
 		
-	Person person=new Person();
-	person.setNom("Mame");
-	person.setHome(listeMaison);
-	manager.persist(person);
-
-		tx.commit();
-
-		// TODO run request
-
-		System.out.println(".. done");
 	}
+	
+	
+	private void createHome(){
+		
+		int numberHome = manager.createQuery("Select h From Home h", Home.class).getResultList().size();
+
+        if (numberHome == 0) {
+
+            Person person = new Person("Fidy");
+
+            manager.persist(person);
+
+            manager.persist(new Home("Saint Anne",person));
+
+            manager.persist(new Home("Rennes",person));
+
+        }
+		
+		
+		
+	}
+	
+	
+	
+	private void listPersonnes() {
+
+        List<Home> resultList = manager.createQuery("Select h From Home h", Home.class).getResultList();
+
+        System.out.println("number of houses:" + resultList.size());
+
+        for (Home next : resultList) {
+
+            System.out.println("next home: " + next.getAdresse());
+
+        }
+	
+	}
+	
+	
+	
+	
 
 }

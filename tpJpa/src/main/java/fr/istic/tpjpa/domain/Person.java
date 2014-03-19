@@ -74,7 +74,12 @@ public class Person {
 	
 
 	
-    @OneToMany(mappedBy = "personne", cascade = CascadeType.PERSIST)
+    public Person(String nom) {
+		super();
+		this.nom = nom;
+
+	}
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.PERSIST)
     public List<Home> getHome() {
 		return home;
 	}
