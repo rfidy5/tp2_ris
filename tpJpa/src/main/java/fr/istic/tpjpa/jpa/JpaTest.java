@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import fr.istic.tpjpa.domain.Home;
 import fr.istic.tpjpa.domain.Person;
@@ -115,6 +118,19 @@ public class JpaTest {
             System.out.println("next home: " + next.getAdresse());
 
         }
+	
+	}
+	private void listPersonnesByGenre(Boolean genre) {
+
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		// assuming a is an Integer  
+		// if returning multiple fields, look into using a Tuple 
+//		    or specifying the return type as an Object or Object[]
+		
+		CriteriaQuery<Boolean> query = criteriaBuilder.createQuery(Boolean.class);
+		//Root<Person.class> from = query.from(Person.class);
+//		query.select(from.get("genre")).where(from.get("genre").equals(true));
+		query.select(from.get("genre")).where(from.get("genre").equals(true));
 	
 	}
 	
