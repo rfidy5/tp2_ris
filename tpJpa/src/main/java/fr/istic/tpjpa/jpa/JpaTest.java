@@ -64,7 +64,7 @@ public class JpaTest {
         try {
 
             test.createHome();
-
+            test.listPersonnesByGenre(true);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -128,9 +128,9 @@ public class JpaTest {
 //		    or specifying the return type as an Object or Object[]
 		
 		CriteriaQuery<Boolean> query = criteriaBuilder.createQuery(Boolean.class);
-		//Root<Person.class> from = query.from(Person.class);
+		Root<Person> from = query.from(Person.class);
 //		query.select(from.get("genre")).where(from.get("genre").equals(true));
-		query.select(from.get("genre")).where(from.get("genre").equals(true));
+		query.multiselect(from.get("nom"));
 	
 	}
 	
