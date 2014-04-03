@@ -1,3 +1,4 @@
+
 tp2_ris
 =======
 
@@ -5,6 +6,7 @@ tp2_ris
 Le but de ce tp est de suivre un modèle objet, pour créer des classes et les rendre persistantes en utilisant les entités,puis créer des instances persistantes de ces classes/
 
 voici un exemple de code:
+```java
 
 @Entity
 public class Person {
@@ -28,13 +30,15 @@ public void setId(Long id) {
 this.id = id;
 }
 // pareil pour tous les autres attributs 
+}
+```
 
 2) 
 On étent un peu plus, la première question en créant des associations entre les entités.
 
 
 voici un exemple de code:
-
+```java
 private List<Home> home = new ArrayList<Home>();
 
 	@OneToMany(mappedBy = "personne", cascade = CascadeType.PERSIST)
@@ -45,14 +49,14 @@ public void setHome(List<Home> home) {
 this.home = home;
 }
 
-
+```
 
 3)
 à la fin, on rajoute une classe de service qui nous permettra de peupler la base de données, et en meme temps l'intéroger en faisant des requetes
 
 
 voici un exmeple de code d'une méthode pour créer des maisons, si il y' en a pas pour une personne x
-
+```java
 	private void createHome(){
 
 int numberHome = manager.createQuery("Select h From Home h", Home.class).getResultList().size();
@@ -68,7 +72,7 @@ int numberHome = manager.createQuery("Select h From Home h", Home.class).getResu
             manager.persist(new Home("Rennes",person));
 
         }
-
+```
 
 
 }
